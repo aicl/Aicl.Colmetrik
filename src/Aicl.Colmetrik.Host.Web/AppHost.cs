@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.IO;
 using System.Linq;
@@ -28,12 +29,31 @@ namespace Aicl.Colmetrik.Host.Web
 {
 	public class AppHost:AppHostBase
 	{
-		private static ILog log;
+		private static readonly ILog log =LogManager.GetLogger(typeof (AppHost));
+
+        [Conditional("DEBUG")]
+        private static void LogDebug(string fmt, params object[] args)
+        {
+            if (args.Length > 0)
+                log.DebugFormat(fmt, args);
+            else
+                log.Debug(fmt);
+        }
 		
+        private static void LogInfo(string fmt, params object[] args)
+        {
+            if (args.Length > 0)
+                log.InfoFormat(fmt, args);
+            else
+                log.Info(fmt);
+        }
+
 		public AppHost (): base("Aicl.Colmetrik", typeof(AuthenticationService).Assembly)
 		{
+            var appSettings = new ConfigurationResourceManager();
 
-			var appSettings = new ConfigurationResourceManager();
+            if(!appSettings.Get("EnableLog", false)) return;
+
 			if (appSettings.Get("EnableLog4Net", false))
 			{
 				var cf="log4net.conf".MapHostAbsolutePath();
@@ -43,9 +63,6 @@ namespace Aicl.Colmetrik.Host.Web
 			}
 			else
 				LogManager.LogFactory = new ConsoleLogFactory();
-						
-			log = LogManager.GetLogger(typeof (AppHost));
-
 		}
 		
 		public override void Configure(Container container)
@@ -63,7 +80,7 @@ namespace Aicl.Colmetrik.Host.Web
 							
 									
 			ConfigureApp(container);
-			log.InfoFormat("AppHost Configured: " + DateTime.Now);
+			LogInfo("AppHost Configured: " + DateTime.Now);
 		}
 				
 		
@@ -117,10 +134,11 @@ namespace Aicl.Colmetrik.Host.Web
 				IncludeAssignRoleServices=false, 
 			});
 		    				
-			var cnFactory = new OrmLiteConnectionFactory(ConfigUtils.GetConnectionString("UserAuth")) ;
+			//var cnFactory = new OrmLiteConnectionFactory(ConfigUtils.GetConnectionString("UserAuth")) ;
 			
 			OrmLiteAuthRepository authRepo = new OrmLiteAuthRepository(
-				cnFactory
+				//cnFactory
+                dbFactory
 			);
 			
 			container.Register<IUserAuthRepository>(

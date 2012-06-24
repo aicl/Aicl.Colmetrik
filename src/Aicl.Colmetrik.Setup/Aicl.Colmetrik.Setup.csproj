@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DDCCAE05-5A85-4E49-9A91-1F5DDAAB2B64}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Aicl.Colmetrik.Setup</RootNamespace>
+    <AssemblyName>Aicl.Colmetrik.Setup</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="ServiceStack.Common">
+      <HintPath>..\..\lib\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>..\..\lib\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\..\lib\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>..\..\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\lib\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>..\..\lib\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Logging.Log4Net">
+      <HintPath>..\..\lib\ServiceStack.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.MySql">
+      <HintPath>..\..\lib\ServiceStack.OrmLite.MySql.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppHost.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Aicl.Colmetrik.Interface\Aicl.Colmetrik.Interface.csproj">
+      <Project>{A1E54434-A478-4FF2-9DE0-BCFE3EB4A539}</Project>
+      <Name>Aicl.Colmetrik.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aicl.Colmetrik.Model\Aicl.Colmetrik.Model.csproj">
+      <Project>{EBE49D73-FAEA-4685-9C69-3C591FE7B7B4}</Project>
+      <Name>Aicl.Colmetrik.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aicl.Colmetrik.DataAccess\Aicl.Colmetrik.DataAccess.csproj">
+      <Project>{B9F974CE-8961-4B67-9551-94A70A8423E9}</Project>
+      <Name>Aicl.Colmetrik.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <Gettext-ScanForTranslations>false</Gettext-ScanForTranslations>
+    </None>
+    <None Include="log4net.conf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>
