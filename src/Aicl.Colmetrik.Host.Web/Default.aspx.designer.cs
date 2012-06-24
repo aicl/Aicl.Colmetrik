@@ -12,5 +12,7 @@ namespace Aicl.Colmetrik.Host.Web {
 	
 	
 	public partial class Default {
+		
+		protected System.Web.UI.HtmlControls.HtmlForm form1;
 	}
 }
