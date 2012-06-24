@@ -12,6 +12,7 @@ using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.CacheAccess;
 using ServiceStack.ServiceHost;
 using ServiceStack.DesignPatterns.Model;
+using ServiceStack.ServiceInterface.ServiceModel;
 using Aicl.Colmetrik.Model.Types;
 using Aicl.Colmetrik.Model.Operations;
 using Aicl.Colmetrik.DataAccess;
@@ -28,7 +29,7 @@ namespace Aicl.Colmetrik.BusinessLogic
             long? totalCount=null;
 
             var predicate = PredicateBuilder.Null<Pedido>();
-
+            try{
             var data = factory.Execute(proxy=>{
                 var visitor = ReadExtensions.CreateExpression<Pedido>();
                 if(!request.NombreCompania.IsNullOrEmpty())
@@ -53,8 +54,18 @@ namespace Aicl.Colmetrik.BusinessLogic
             return new Response<Pedido>(){
                 Data=data,
                 TotalCount=totalCount
-
             };
+            }
+            catch(Exception e){
+                ResponseStatus rs = new ResponseStatus(){
+                    Message= e.Message,
+                    StackTrace=e.StackTrace,
+                    ErrorCode= "GetPedidoError"
+                };
+                return new Response<Pedido>(){
+                    ResponseStatus=rs
+                };
+            }
         }
     }
 

@@ -15,6 +15,7 @@ using ServiceStack.DesignPatterns.Model;
 using Aicl.Colmetrik.Model.Types;
 using Aicl.Colmetrik.Model.Operations;
 using Aicl.Colmetrik.DataAccess;
+using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace Aicl.Colmetrik.BusinessLogic
 {
@@ -23,7 +24,7 @@ namespace Aicl.Colmetrik.BusinessLogic
          public static Response<PedidoItem> Get(this PedidoItem request,Factory factory,
                                            IAuthSession authSession)
         {
-
+            try{
             var data = factory.Execute(proxy=>{
                 var visitor = ReadExtensions.CreateExpression<PedidoItem>();
                 visitor.Where(r=>r.IdPedido==request.IdPedido);
@@ -34,6 +35,17 @@ namespace Aicl.Colmetrik.BusinessLogic
                 Data=data
 
             };
+            }
+            catch(Exception e){
+                ResponseStatus rs = new ResponseStatus(){
+                    Message= e.Message,
+                    StackTrace=e.StackTrace,
+                    ErrorCode= "GetPedidoItemError"
+                };
+                return new Response<PedidoItem>(){
+                    ResponseStatus=rs
+                };
+            }
         }
 
     }
