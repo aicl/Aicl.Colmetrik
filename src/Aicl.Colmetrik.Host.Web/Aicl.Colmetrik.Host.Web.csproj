@@ -68,7 +68,7 @@
       <HintPath>..\..\lib\ServiceStack.OrmLite.MySql.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\lib\mysql.data.dll</HintPath>
+      <HintPath>..\..\lib\MySql.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
