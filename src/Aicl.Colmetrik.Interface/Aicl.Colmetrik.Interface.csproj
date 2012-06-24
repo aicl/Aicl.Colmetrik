@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A1E54434-A478-4FF2-9DE0-BCFE3EB4A539}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Aicl.Colmetrik.Interface</RootNamespace>
+    <AssemblyName>Aicl.Colmetrik.Interface</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="ServiceStack.Common">
+      <HintPath>..\..\lib\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>..\..\lib\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\..\lib\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\lib\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.FluentValidation.Mvc3">
+      <HintPath>..\..\lib\ServiceStack.FluentValidation.Mvc3.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>..\..\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HttpResponse.cs" />
+    <Compile Include="AppConfig.cs" />
+    <Compile Include="AppRestService.cs" />
+    <Compile Include="Attributes\PermissionAttribute.cs" />
+    <Compile Include="Attributes\RequiresAuthenticateAttribute.cs" />
+    <Compile Include="Attributes\RoleAttribute.cs" />
+    <Compile Include="Auth\AuthenticationProvider.cs" />
+    <Compile Include="Auth\AuthenticationService.cs" />
+    <Compile Include="Auth\AuthorizationService.cs" />
+    <Compile Include="Services\PedidoService.cs" />
+    <Compile Include="Services\PedidoItemService.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Attributes\" />
+    <Folder Include="Auth\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aicl.Colmetrik.DataAccess\Aicl.Colmetrik.DataAccess.csproj">
+      <Project>{B9F974CE-8961-4B67-9551-94A70A8423E9}</Project>
+      <Name>Aicl.Colmetrik.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aicl.Colmetrik.Model\Aicl.Colmetrik.Model.csproj">
+      <Project>{EBE49D73-FAEA-4685-9C69-3C591FE7B7B4}</Project>
+      <Name>Aicl.Colmetrik.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aicl.Colmetrik.BusinessLogic\Aicl.Colmetrik.BusinessLogic.csproj">
+      <Project>{81FB9BD7-CE42-4AD7-A597-C0EB5F8258EE}</Project>
+      <Name>Aicl.Colmetrik.BusinessLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

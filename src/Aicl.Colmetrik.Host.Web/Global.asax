@@ -1,0 +1,1 @@
+<%@ Application Inherits="Aicl.Colmetrik.Host.Web.Global" %>
