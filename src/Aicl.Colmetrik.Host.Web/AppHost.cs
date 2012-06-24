@@ -93,19 +93,23 @@ namespace Aicl.Colmetrik.Host.Web
 			AuthProvider.DefaultSessionExpiry=TimeSpan.FromMinutes(se);			
 
 			
-			string cacheHost= appSettings.Get("CacheHost", "localhost:6379");			
-			int cacheDb= appSettings.Get("CacheDb",8);													
-			string cachePassword= appSettings.Get("CachePassword",string.Empty);
+			//string cacheHost= appSettings.Get("CacheHost", "localhost:6379");			
+			//int cacheDb= appSettings.Get("CacheDb",8);													
+			//string cachePassword= appSettings.Get("CachePassword",string.Empty);
 					
-			var p = new PooledRedisClientManager(new string[]{cacheHost},
-						new string[]{cacheHost},
-						cacheDb); 
-						
-			if(! string.IsNullOrEmpty(cachePassword))
-			{
-				using( IRedisClient rc = p.GetClient())
-					rc.Password= cachePassword;
-			}
+			//var p = new PooledRedisClientManager(new string[]{cacheHost},
+			//			new string[]{cacheHost},
+			//			cacheDb); 
+			
+            //redis://redistogo-appharbor:THEPASSWORD@koi.redistogo.com:9347
+			
+            string cacheHost="koi.redistogo.com:9347";
+
+            int cacheDb=0;
+
+            var p = new PooledRedisClientManager(new string[]{cacheHost},
+                      new string[]{cacheHost},
+                      cacheDb); 
 			
 			OrmLiteConfig.DialectProvider= MySqlDialectProvider.Instance;
 			
@@ -121,13 +125,15 @@ namespace Aicl.Colmetrik.Host.Web
 				}
 			);
 			
-			container.Register<ICacheClient>(p);
+            //container.Register<ICacheClient>(p);
+			container.Register<ICacheClient>(new MemoryCacheClient { FlushOnDispose = false });
 						
 			Plugins.Add(new AuthFeature(
 				 () => new AuthUserSession(), // or Use your own typed Custom AuthUserSession type
 				new IAuthProvider[]
         	{
 				new AuthenticationProvider(){SessionExpiry=TimeSpan.FromMinutes(se)}
+                //new CredentialsAuthProvider(){SessionExpiry=TimeSpan.FromMinutes(se)}
 				
         	})
 			{
