@@ -40,7 +40,7 @@ namespace Aicl.Colmetrik.BusinessLogic
                 ResponseStatus rs = new ResponseStatus(){
                     Message= e.Message,
                     StackTrace=e.StackTrace,
-                    ErrorCode= "GetPedidoItemError"
+                    ErrorCode= e.ToString()
                 };
                 return new Response<PedidoItem>(){
                     ResponseStatus=rs

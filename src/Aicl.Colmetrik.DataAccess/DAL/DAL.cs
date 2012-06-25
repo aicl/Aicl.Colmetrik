@@ -63,6 +63,17 @@ namespace Aicl.Colmetrik.DataAccess
             });
 
         }
+
+         public static long GetCount<T>( this DALProxy proxy, SqlExpressionVisitor<T> visitor)
+            where T:  new()
+        {
+            return proxy.Execute(dbCmd=>{
+                return dbCmd.GetScalar<T,long>(visitor);
+            });
+
+        }
+
+
  /*
         public static List<T> GetFromCache<T>(DALProxy proxy, int idUsuario)
             where T: IHasIdUsuario, new()

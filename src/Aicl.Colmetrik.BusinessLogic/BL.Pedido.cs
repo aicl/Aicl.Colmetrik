@@ -28,24 +28,29 @@ namespace Aicl.Colmetrik.BusinessLogic
         {
             long? totalCount=null;
 
-            var predicate = PredicateBuilder.Null<Pedido>();
+            //var predicate = PredicateBuilder.Null<Pedido>();
             try{
             var data = factory.Execute(proxy=>{
-                var visitor = ReadExtensions.CreateExpression<Pedido>();
-                if(!request.NombreCompania.IsNullOrEmpty())
+               var visitor = ReadExtensions.CreateExpression<Pedido>();
+               if(!request.NombreCompania.IsNullOrEmpty())
                 {
-                    predicate= PredicateBuilder.Start<Pedido>(
-                        r=>r.NombreCompania.Contains(request.NombreCompania));
+                    visitor.Where(r=>r.NombreCompania.Contains(request.NombreCompania));
                 }
+
 
                 if(pageNumber.HasValue)
                 {
-                    totalCount= proxy.Count<Pedido>(predicate, predicate.IsNull());
+                    visitor.ExcludeJoin=true;
+                    visitor.Select(r=> Sql.Count(r.Id));
+                    totalCount= proxy.GetCount<Pedido>(visitor);
+                    visitor.ExcludeJoin=false;
+
                     int rows= pageSize.HasValue? pageSize.Value:PageSize;
                     visitor.Limit(pageNumber.Value*rows, rows);
+
                 }
 
-                visitor.Where(predicate).OrderByDescending(r=>r.Id);
+                visitor.OrderByDescending(r=>r.Id);
 
                 return proxy.Get(visitor);
             });
@@ -60,7 +65,7 @@ namespace Aicl.Colmetrik.BusinessLogic
                 ResponseStatus rs = new ResponseStatus(){
                     Message= e.Message,
                     StackTrace=e.StackTrace,
-                    ErrorCode= "GetPedidoError"
+                    ErrorCode= e.ToString()
                 };
                 return new Response<Pedido>(){
                     ResponseStatus=rs
