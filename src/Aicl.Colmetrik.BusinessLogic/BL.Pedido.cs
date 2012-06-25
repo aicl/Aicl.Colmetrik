@@ -40,7 +40,7 @@ namespace Aicl.Colmetrik.BusinessLogic
 
                 if(pageNumber.HasValue)
                 {
-                    visitor.ExcludeJoin=true;
+                    visitor.ExcludeJoin= visitor.WhereExpression.IsNullOrEmpty();
                     visitor.Select(r=> Sql.Count(r.Id));
                     totalCount= proxy.GetCount<Pedido>(visitor);
                     visitor.ExcludeJoin=false;

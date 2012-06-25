@@ -71,7 +71,7 @@ Ext.define('App.view.pedido.Form', {
 		items:[
 			{
 				name: 'NombreCompania',
-				fieldLabel: 'Compañia'
+				fieldLabel: 'Cliente'
 			},
 			{
 				name: 'Nit',

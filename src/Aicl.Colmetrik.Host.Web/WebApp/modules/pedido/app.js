@@ -154,7 +154,7 @@ Ext.define('App.view.resumenpedido.Form', {
 	},
 	{
 		name: 'Tiempo',
-		fieldLabel: 'Dias hábiles para la prestación del servicio'
+		fieldLabel: 'Dias habiles para la prestacion del servicio'
 	},
 	{
 		name: 'RealizadoPor',

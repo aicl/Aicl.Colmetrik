@@ -41,7 +41,7 @@ Ext.define('App.view.pedido.List',{
 		width:80
 	},
     {
-		text: 'Compañia',
+		text: 'Cliente',
 		dataIndex: 'NombreCompania',
 		width:180
 	},  

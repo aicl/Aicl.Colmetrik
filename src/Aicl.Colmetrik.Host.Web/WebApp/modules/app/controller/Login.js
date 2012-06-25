@@ -31,6 +31,7 @@ Ext.define('App.controller.Login',{
 					success : function(result) {
 						me.getLoginWindow().hide()
 						me.createMenu();
+						me.startPolling();
 					},
 					failure : function(response, options) {
 						console.log(arguments);
@@ -72,6 +73,7 @@ Ext.define('App.controller.Login',{
 	    	handler	: function(){
 	    		Aicl.Util.logout({
 	    			callback:function(result, success){
+	    				me.stopPolling();
 	    				vp.destroy();
 	    				me.getLoginWindow().show();
 	    			}
@@ -114,6 +116,25 @@ Ext.define('App.controller.Login',{
             	}]
         	}]
     	});
-	}
+	},
+	
+	onLaunch: function(application){
+		this.task={
+		    run: function(){
+		        Aicl.Util.executeAjaxRequest({url:Aicl.Util.getUrlApi()+'/Refresh', method:'GET'});
+		    },
+		    interval: 30000/6 // every 10 seconds
+		};
+		this.runner = new Ext.util.TaskRunner();
+    },
+    
+    startPolling:function(){
+    	this.runner.start(this.task);
+    },
+    
+    stopPolling:function(){
+    	if(this.runner && this.task)
+    	 	this.runner.stop(this.task);
+    }
     
 });

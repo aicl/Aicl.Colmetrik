@@ -67,6 +67,7 @@
     <Compile Include="Auth\AuthorizationService.cs" />
     <Compile Include="Services\PedidoService.cs" />
     <Compile Include="Services\PedidoItemService.cs" />
+    <Compile Include="Services\RefreshService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
