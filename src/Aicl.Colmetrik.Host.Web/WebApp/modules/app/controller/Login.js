@@ -121,7 +121,7 @@ Ext.define('App.controller.Login',{
 	onLaunch: function(application){
 		this.task={
 		    run: function(){
-		        Aicl.Util.executeAjaxRequest({url:Aicl.Util.getUrlApi()+'/Refresh', method:'GET'});
+		        Aicl.Util.executeAjaxRequest({url:Aicl.Util.getUrlApi()+'/Refresh', method:'GET', format:'json'});
 		    },
 		    interval: 60000*15 // every 15 minutes
 		};
