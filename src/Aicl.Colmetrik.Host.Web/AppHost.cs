@@ -81,9 +81,7 @@ namespace Aicl.Colmetrik.Host.Web
 									
 			ConfigureApp(container);
 			LogInfo("AppHost Configured: " + DateTime.Now);
-		}
-				
-		
+		}		
 		
 		private void ConfigureApp(Container container){
 
@@ -91,25 +89,10 @@ namespace Aicl.Colmetrik.Host.Web
 					
 			double se= appSettings.Get("DefaultSessionExpiry", 480);
 			AuthProvider.DefaultSessionExpiry=TimeSpan.FromMinutes(se);			
+            			           
+            string cacheHost=appSettings.Get("REDISTOGO_URL","localhost:6379");
 
-			
-			//string cacheHost= appSettings.Get("CacheHost", "localhost:6379");			
-			//int cacheDb= appSettings.Get("CacheDb",8);													
-			//string cachePassword= appSettings.Get("CachePassword",string.Empty);
-					
-			//var p = new PooledRedisClientManager(new string[]{cacheHost},
-			//			new string[]{cacheHost},
-			//			cacheDb); 
-			
-            //redis://redistogo-appharbor:THEPASSWORD@koi.redistogo.com:9347
-			
-            string cacheHost="koi.redistogo.com:9347";
-
-            int cacheDb=0;
-
-            var p = new PooledRedisClientManager(new string[]{cacheHost},
-                      new string[]{cacheHost},
-                      cacheDb); 
+            var p = new BasicRedisClientManager(new string[]{cacheHost});
 			
 			OrmLiteConfig.DialectProvider= MySqlDialectProvider.Instance;
 			
@@ -125,8 +108,8 @@ namespace Aicl.Colmetrik.Host.Web
 				}
 			);
 			
-            //container.Register<ICacheClient>(p);
-			container.Register<ICacheClient>(new MemoryCacheClient { FlushOnDispose = false });
+			//container.Register<ICacheClient>(new MemoryCacheClient { FlushOnDispose = false });
+            container.Register<IRedisClientsManager>(c => p);
 						
 			Plugins.Add(new AuthFeature(
 				 () => new AuthUserSession(), // or Use your own typed Custom AuthUserSession type
@@ -140,16 +123,14 @@ namespace Aicl.Colmetrik.Host.Web
 				IncludeAssignRoleServices=false, 
 			});
 		    				
-			//var cnFactory = new OrmLiteConnectionFactory(ConfigUtils.GetConnectionString("UserAuth")) ;
 			
 			OrmLiteAuthRepository authRepo = new OrmLiteAuthRepository(
-				//cnFactory
                 dbFactory
 			);
 			
 			container.Register<IUserAuthRepository>(
 				c => authRepo
-			); //Use OrmLite DB Connection to persist the UserAuth and AuthProvider info
+			); 
 
 			
 			if(appSettings.Get("EnableRegistrationFeature", false))
