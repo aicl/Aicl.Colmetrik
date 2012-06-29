@@ -143,11 +143,11 @@
 			config.type= config.type || 'rest';
 			
 			config.api=config.api||{};
-			config.url= config.url || Aicl.Util.getUrlApi()+'/' + config.storeId;
-			config.api.create=config.api.create|| config.url+'/create';
-			config.api.read=config.api.read|| config.url+'/read';
-			config.api.update=config.api.update|| config.url+'/update';
-			config.api.destroy=config.api.destroy|| config.url+'/destroy';
+			config.url= config.url || (Aicl.Util.getUrlApi()+'/' + config.storeId);
+			config.api.create=config.api.create|| (config.url+'/create');
+			config.api.read=config.api.read|| (config.url+'/read');
+			config.api.update=config.api.update|| (config.url+'/update');
+			config.api.destroy=config.api.destroy|| (config.url+'/destroy');
 			
 			return this.createProxy(config);
 			
@@ -155,7 +155,7 @@
 		
 		createAjaxProxy:function (config){
 			config.type=config.type||'ajax';
-			config.url= config.url || Aicl.Util.getHttpUrlApi()+'/' + config.storeId;
+			config.url= config.url || (Aicl.Util.getHttpUrlApi()+'/' + config.storeId);
 			var proxy= this.createProxy(config);
 			proxy.actionMethods= {create: "POST", read: "GET", update: "PUT", destroy: "DELETE"};
 			return proxy;

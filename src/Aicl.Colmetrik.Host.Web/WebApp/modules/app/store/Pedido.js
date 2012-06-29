@@ -8,7 +8,7 @@ Ext.define('App.store.Pedido',{
     config.remoteSort=true;
     config.proxy= Aicl.Util.createRestProxy({
     	//type: 'jsonp',
-    	url: config.url||Aicl.Util.getUrlApi()+'/Pedido',
+    	url: config.url||(Aicl.Util.getUrlApi()+'/Pedido'),
     	totalProperty: 'TotalCount',
     	storeId:config.storeId,
         pageParam:'page',
