@@ -60,7 +60,7 @@ Ext.define('App.controller.Login',{
     				directory:grupos[grupo].Directory,
     				scale   : 'small',
     				handler	: function(){
-    				Ext.getDom('iframe-win').src = Aicl.Util.getUrlModules()+this.directory; // 'modules/'+this.directory;
+    				Ext.getDom('iframe-win').src = Aicl.Util.getUrlModules()+"/"+this.directory; // 'modules/'+this.directory;
     				}
 				});
 				i++;
