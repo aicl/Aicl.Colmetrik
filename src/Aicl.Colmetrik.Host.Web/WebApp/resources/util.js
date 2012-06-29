@@ -264,6 +264,15 @@
 			return sessionStorage.roles? Ext.decode(sessionStorage.roles): [];		
 		},
 		
+		setUrlModules: function (urlModules){
+			sessionStorage["urlModules"]=urlModules;
+		},
+		
+		getUrlModules:function (){
+			return sessionStorage["urlModules"];
+		},
+		
+		
 		setUrlLogin: function (urlLogin){
 			sessionStorage["urlLogin"]=urlLogin;
 		},

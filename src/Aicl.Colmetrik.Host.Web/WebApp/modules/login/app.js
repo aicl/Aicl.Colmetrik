@@ -6,6 +6,9 @@ name: 'App',
 appFolder: 'modules/app',
 
 launch: function(){
+	
+	Aicl.Util.setUrlModules(location.protocol + '//' + location.host + '/WebApp/modules');
+	
 	Aicl.Util.setUrlApi(location.protocol + '//' + location.host + '/api');
 	Aicl.Util.setHttpUrlApi(location.protocol + '//' + location.host + '/api'+'/json/asynconeway')
 		
@@ -14,6 +17,7 @@ launch: function(){
 	
 	Aicl.Util.setPhotoDir(location.protocol + '//' + location.host +  '' + location.pathname+ 'photos');
 	Aicl.Util.setEmptyImgUrl('../../resources/icons/fam/user.png');
+	
     var loginWin = Ext.create('App.view.Login');
     loginWin.show();
 },
