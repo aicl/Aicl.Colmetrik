@@ -56,7 +56,7 @@ namespace Aicl.Colmetrik.BusinessLogic
 					if(paginador.PageNumber.HasValue)
 	                {
 						visitor.Select(r=> Sql.Count(r.Id));
-						totalCount= proxy.Count<Pedido>(visitor); //proxy.Count(predicate);
+						totalCount= proxy.Count(visitor); //proxy.Count(predicate);
 	                    int rows= paginador.PageSize.HasValue? paginador.PageSize.Value:BL.PageSize;
 						visitor.Select();
 	                    visitor.Limit(paginador.PageNumber.Value*rows, rows);
