@@ -190,7 +190,7 @@ namespace Aicl.Colmetrik.DataAccess
             where T: IHasId<int>, new()
         {
             
-            expression.Select(r=> Sql.Count(r.Id));
+            //expression.Select(r=> Sql.Count(r.Id));
 
             return Execute(dbCmd=>{
                 return dbCmd.GetScalar<T,long>(expression) ;
