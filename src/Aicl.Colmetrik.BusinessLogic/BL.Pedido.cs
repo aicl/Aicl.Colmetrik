@@ -54,7 +54,7 @@ namespace Aicl.Colmetrik.BusinessLogic
 					var visitor = ReadExtensions.CreateExpression<Pedido>();
 					if(paginador.PageNumber.HasValue)
 	                {
-	                    totalCount= proxy.Count(predicate);
+						totalCount= proxy.Count<Pedido>(q=>q.NombreCompania.Contains("Texaco")); //proxy.Count(predicate);
 	                    int rows= paginador.PageSize.HasValue? paginador.PageSize.Value:BL.PageSize;
 	                    visitor.Limit(paginador.PageNumber.Value*rows, rows);
 	                }
