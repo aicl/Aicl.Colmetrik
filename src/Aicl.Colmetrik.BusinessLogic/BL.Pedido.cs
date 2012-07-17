@@ -31,37 +31,48 @@ namespace Aicl.Colmetrik.BusinessLogic
             var paginador= new Paginador(httpRequest);
             var queryString= httpRequest.QueryString;
 			long? totalCount=null;
+
+			ResponseStatus rs=null;
             
             var data = factory.Execute(proxy=>{
 
-				int id;
-                if(int.TryParse(queryString["Id"], out id)){
-					if(id!=default(int)) return proxy.Get<Pedido>(r=>r.Id==id);
-				}
-
-				var predicate = PredicateBuilder.True<Pedido>();
-
-				string compania= queryString["NombreCompania"];
-            	if(!compania.IsNullOrEmpty()) 
+				try
 				{
-					predicate= predicate.AndAlso(r=>r.NombreCompania.Contains(compania));
-                }
+					int id;
+	                if(int.TryParse(queryString["Id"], out id)){
+						if(id!=default(int)) return proxy.Get<Pedido>(r=>r.Id==id);
+					}
 
-				var visitor = ReadExtensions.CreateExpression<Pedido>();
-				if(paginador.PageNumber.HasValue)
-                {
-                    totalCount= proxy.Count(predicate);
-                    int rows= paginador.PageSize.HasValue? paginador.PageSize.Value:BL.PageSize;
-                    visitor.Limit(paginador.PageNumber.Value*rows, rows);
-                }
-               
-				visitor.Where(predicate).OrderByDescending(r=>r.Id); 
-                return proxy.Get(visitor);
+					var predicate = PredicateBuilder.True<Pedido>();
+
+					string compania= queryString["NombreCompania"];
+	            	if(!compania.IsNullOrEmpty()) 
+					{
+						predicate= predicate.AndAlso(r=>r.NombreCompania.Contains(compania));
+	                }
+
+					var visitor = ReadExtensions.CreateExpression<Pedido>();
+					if(paginador.PageNumber.HasValue)
+	                {
+	                    totalCount= proxy.Count(predicate);
+	                    int rows= paginador.PageSize.HasValue? paginador.PageSize.Value:BL.PageSize;
+	                    visitor.Limit(paginador.PageNumber.Value*rows, rows);
+	                }
+	               
+					visitor.Where(predicate).OrderByDescending(r=>r.Id); 
+	                return proxy.Get(visitor);
+				}
+				catch(Exception e)
+				{
+					rs= new ResponseStatus(){ErrorCode="GetClienteError",Message=e.Message, StackTrace=e.StackTrace};
+					return new List<Pedido>();
+				}
             });
             
             return new Response<Pedido>(){
                 Data=data,
-                TotalCount=totalCount
+                TotalCount=totalCount,
+				ResponseStatus=rs==null? new ResponseStatus():rs
             };
         }
 		#endregion get
