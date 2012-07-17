@@ -52,14 +52,15 @@ namespace Aicl.Colmetrik.BusinessLogic
 	                }
 
 					var visitor = ReadExtensions.CreateExpression<Pedido>();
+					visitor.Where(predicate);
 					if(paginador.PageNumber.HasValue)
 	                {
-						totalCount= proxy.Count<Pedido>(q=>q.NombreCompania.Contains("Texaco")); //proxy.Count(predicate);
+						totalCount= proxy.Count<Pedido>(visitor); //proxy.Count(predicate);
 	                    int rows= paginador.PageSize.HasValue? paginador.PageSize.Value:BL.PageSize;
 	                    visitor.Limit(paginador.PageNumber.Value*rows, rows);
 	                }
 	               
-					visitor.Where(predicate).OrderByDescending(r=>r.Id); 
+					visitor.OrderByDescending(r=>r.Id); 
 	                return proxy.Get(visitor);
 				}
 				catch(Exception e)

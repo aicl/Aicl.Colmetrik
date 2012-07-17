@@ -49,14 +49,15 @@ namespace Aicl.Colmetrik.BusinessLogic
 	                }
 
 					var visitor = ReadExtensions.CreateExpression<Cliente>();
+					visitor.Where(predicate);
 					if(paginador.PageNumber.HasValue)
 	                {
-	                    totalCount= proxy.Count(predicate);
+	                    totalCount= proxy.Count(visitor);
 	                    int rows= paginador.PageSize.HasValue? paginador.PageSize.Value:BL.PageSize;
 	                    visitor.Limit(paginador.PageNumber.Value*rows, rows);
 	                }
 	               
-					visitor.Where(predicate).OrderBy(r=>r.NombreCompania); 
+					visitor.OrderBy(r=>r.NombreCompania); 
 	                return proxy.Get(visitor);
 				}
 				catch(Exception e)

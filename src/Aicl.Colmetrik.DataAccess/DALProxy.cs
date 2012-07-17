@@ -186,12 +186,11 @@ namespace Aicl.Colmetrik.DataAccess
         }
 
 
-        public long Count<T>(Expression<Func<T,bool>> predicate,bool excludeJoin=false)
+        public long Count<T>(SqlExpressionVisitor<T> expression)
             where T: IHasId<int>, new()
         {
-            var expression= ReadExtensions.CreateExpression<T>();
-            expression.ExcludeJoin=excludeJoin;
-            expression.Select(r=> Sql.Count(r.Id)).Where(predicate);
+            
+            expression.Select(r=> Sql.Count(r.Id));
 
             return Execute(dbCmd=>{
                 return dbCmd.GetScalar<T,long>(expression) ;
