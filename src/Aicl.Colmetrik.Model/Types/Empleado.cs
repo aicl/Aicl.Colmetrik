@@ -64,7 +64,7 @@ namespace Aicl.Colmetrik.Model.Types
         [StringLength(1024)]
         public string Notas {get; set;} 
         
-        public int? 	Jefe {get; set;} 
+        public int? Jefe {get; set;} 
         
         [StringLength(510)]
         public string Firma {get; set;}

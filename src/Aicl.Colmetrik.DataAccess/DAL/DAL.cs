@@ -1,4 +1,6 @@
+/*
 using System;
+using System.Reflection;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
@@ -61,18 +63,48 @@ namespace Aicl.Colmetrik.DataAccess
             return proxy.Execute(dbCmd=>{
                 return dbCmd.GetScalar<T,long>(expression) ;
             });
-
         }
 
-         public static long GetCount<T>( this DALProxy proxy, SqlExpressionVisitor<T> visitor)
-            where T:  new()
+        public static T FirstOrDefault<T>( this DALProxy proxy, Expression<Func<T,bool>> predicate)
+            where T: new()
         {
             return proxy.Execute(dbCmd=>{
-                return dbCmd.GetScalar<T,long>(visitor);
+                return dbCmd.FirstOrDefault(predicate);
             });
-
         }
 
+
+		public static void Create<T>(this DALProxy proxy,T request, 
+		                                     SqlExpressionVisitor<T> visitor=null) 
+			where T: IHasId<System.Int32>, new()
+		{
+			proxy.Execute(dbCmd=>{
+				if(visitor==null) 
+					dbCmd.Insert<T>(request);
+				else 
+					dbCmd.InsertOnly<T>(request,visitor);
+				if(request.Id==default(int))
+            	{
+                	Type type = typeof(T);
+                	PropertyInfo pi= ReflectionUtils.GetPropertyInfo(type, OrmLiteConfig.IdField);
+                	var li = dbCmd.GetLastInsertId();
+                	ReflectionUtils.SetProperty(request, pi, Convert.ToInt32(li));  
+            	}
+			});
+		}
+
+		public static void Update<T>(this DALProxy proxy,T request, 
+		                                     Expression<Func<T,bool>> predicate=null) 
+			where T: IHasId<System.Int32>, new()
+		{
+			proxy.Execute(dbCmd=>{
+				if(predicate==null) dbCmd.Update(request);
+				else dbCmd.Update(request,predicate);
+			});
+		}
+
+
+*/
 
  /*
         public static List<T> GetFromCache<T>(DALProxy proxy, int idUsuario)
@@ -113,6 +145,7 @@ namespace Aicl.Colmetrik.DataAccess
 
 */
 
-    }
-}
+//    }
+
+//}
 

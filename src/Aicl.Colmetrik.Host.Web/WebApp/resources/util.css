@@ -135,6 +135,17 @@ pre.code{
 .upload{
 	background-image:url(icons/silk/up.png) !important;
 }
+.new_document{
+	background-image:url(icons/silk/page_white_add.png) !important;
+}
+
+.save_document{
+	background-image:url(icons/silk/disk.png) !important;
+}
+
+.open_document{
+	background-image:url(icons/silk/folder-open.gif) !important;
+}
 
 #module{
 	margin-left:auto;

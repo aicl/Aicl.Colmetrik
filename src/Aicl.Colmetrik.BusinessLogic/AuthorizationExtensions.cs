@@ -50,7 +50,6 @@ namespace Aicl.Colmetrik.BusinessLogic
                 per= proxy.Get<AuthPermission>(); //DAL.GetFromCache<AuthPermission >(proxy);
                 rol_per= proxy.Get<AuthRolePermission>(); //DAL.GetFromCache<AuthRolePermission >(proxy);
 
-
             });
                         
             foreach( var r in aur)

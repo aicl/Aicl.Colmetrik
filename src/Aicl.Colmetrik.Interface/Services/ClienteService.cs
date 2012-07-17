@@ -11,23 +11,23 @@ using Aicl.Colmetrik.BusinessLogic;
 namespace Aicl.Colmetrik.Interface
 {
     [RequiresAuthenticate]
-    //[Permission("Pedido.read")]
-    //[Permission(ApplyTo.Post, "Pedido.create")] 
-    //[Permission(ApplyTo.Put , "Pedido.update")] 
-    //[Permission(ApplyTo.Delete, "Pedido.destroy")] *
+    //[Permission("Cliente.read")]
+    //[Permission(ApplyTo.Post, "Cliente.create")] 
+    //[Permission(ApplyTo.Put , "Cliente.update")] 
+    //[Permission(ApplyTo.Delete, "Cliente.destroy")] *
 
-    public class PedidoService:AppRestService<Pedido>
+    public class ClienteService:AppRestService<Cliente>
     {
  
-        public override object OnGet (Pedido request)
+        public override object OnGet (Cliente request)
         {
             return request.Get(Factory,RequestContext.Get<IHttpRequest>());
         }
 
 
-		public override object OnPost (Pedido request)
-		{
-			return request.Get(Factory,RequestContext.Get<IHttpRequest>());
-		}
+		//public override object OnPost (Cliente request)
+		//{
+		//	return request.Get(Factory,RequestContext.Get<IHttpRequest>());
+		//}
     }
 }

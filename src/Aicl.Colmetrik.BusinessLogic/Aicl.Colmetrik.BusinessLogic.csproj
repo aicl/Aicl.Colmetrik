@@ -47,6 +47,9 @@
     <Reference Include="ServiceStack.OrmLite">
       <HintPath>..\..\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Linq.Expressions">
+      <HintPath>..\..\lib\Mono.Linq.Expressions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +57,8 @@
     <Compile Include="BL.Pedido.cs" />
     <Compile Include="BL.cs" />
     <Compile Include="BL.PedidoItem.cs" />
+    <Compile Include="Paginador.cs" />
+    <Compile Include="BL.Cliente.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

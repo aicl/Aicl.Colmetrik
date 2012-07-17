@@ -76,6 +76,8 @@
     <Compile Include="Types\AuthRolePermission.cs" />
     <Compile Include="Types\AuthRoleUser.cs" />
     <Compile Include="IHasIdUsuario.cs" />
+    <Compile Include="Types\UserEmpleado.cs" />
+    <Compile Include="Attributes\Cliente.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
