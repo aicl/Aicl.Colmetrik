@@ -27,7 +27,7 @@ namespace Aicl.Colmetrik.Interface
 
 		public override object OnPost (Pedido request)
 		{
-			return request.Get(Factory,RequestContext.Get<IHttpRequest>());
+			return request.Post(Factory,RequestContext.Get<IHttpRequest>());
 		}
     }
 }
