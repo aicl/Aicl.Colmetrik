@@ -92,7 +92,8 @@ namespace Aicl.Colmetrik.BusinessLogic
 				try
 				{
 				var authSession= httpRequest.GetSession();
-				var ue= proxy.FirstOrDefault<UserEmpleado>(q=>q.Id==int.Parse(authSession.UserAuthId)); 
+					var idUsuario=int.Parse(authSession.UserAuthId);
+				var ue= proxy.FirstOrDefault<UserEmpleado>(q=>q.Id==idUsuario); 
 
 				if(ue==default(UserEmpleado))
 					throw new HttpError("El Usuario no tiene un Empleado asociado. El  usuario no puede insertar cotizaciones");
