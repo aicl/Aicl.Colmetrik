@@ -86,8 +86,11 @@ namespace Aicl.Colmetrik.BusinessLogic
 		                                   IHttpRequest httpRequest)
         {
 
+			ResponseStatus rs=null;
 
 			factory.Execute(proxy=>{
+				try
+				{
 				var authSession= httpRequest.GetSession();
 				var ue= proxy.FirstOrDefault<UserEmpleado>(q=>q.Id==int.Parse(authSession.UserAuthId)); 
 
@@ -116,6 +119,12 @@ namespace Aicl.Colmetrik.BusinessLogic
 				request.Apellidos= ue.Apellidos;
 				request.Nombre= ue.Nombre;
 				request.EstadoEnvio= estadoEnvio.Descripcion;
+				}
+				catch(Exception e)
+				{
+					rs= new ResponseStatus(){ErrorCode="GetClienteError",Message=e.Message, StackTrace=e.StackTrace};
+				}
+
 
 			});
 
@@ -124,7 +133,9 @@ namespace Aicl.Colmetrik.BusinessLogic
 			data.Add(request);
 			
 			return new Response<Pedido>(){
-				Data=data
+				Data=data,
+				ResponseStatus= rs==null? new ResponseStatus():rs
+
 			};
 		}
 		#endregion post
